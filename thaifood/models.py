@@ -29,7 +29,6 @@ class Disease(models.Model):
         verbose_name_plural = "กลุ่มเชื้อโรค"
 
 
-@python_2_unicode_compatible
 class Nutrient(models.Model):
     water = models.DecimalField(max_digits=14, decimal_places=4)
     protein = models.DecimalField(max_digits=14, decimal_places=4)
@@ -123,7 +122,6 @@ class Food(models.Model):
         verbose_name_plural = "กลุ่มอาหาร"
 
 
-@python_2_unicode_compatible
 class Menu(models.Model):
     food = models.ForeignKey(Food, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
