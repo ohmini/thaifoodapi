@@ -45,6 +45,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     'rest_framework',
     'django.contrib.auth',
@@ -105,9 +106,10 @@ if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/<SQL instance>',
+            'HOST': '/cloudsql/<DATABASE INSTANCE>',
             'NAME': 'thaifood',
-            'USER': 'root',
+            'USER': '<USERNAME>',
+            'PASSWORD' : '<PASSWORD>',
         }
     }
 else:
@@ -126,7 +128,7 @@ else:
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'th-th'
 
 TIME_ZONE = 'UTC'
 
