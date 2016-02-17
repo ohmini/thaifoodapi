@@ -13,9 +13,80 @@ class Element(models.Model):
         verbose_name_plural = "ธาตุต่างๆ"
 
 
+class Disease(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=255)
+    healing_element = models.ForeignKey(Element, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "เชื้อโรค"
+        verbose_name_plural = "กลุ่มเชื้อโรค"
+
+
+class Nutrient(models.Model):
+    water = models.DecimalField(max_digits=14, decimal_places=4)
+    protein = models.DecimalField(max_digits=14, decimal_places=4)
+    fat = models.DecimalField(max_digits=14, decimal_places=4)
+    carbohydrate = models.DecimalField(max_digits=14, decimal_places=4)
+    dietary_fiber = models.DecimalField(max_digits=14, decimal_places=4)
+    ash = models.DecimalField(max_digits=14, decimal_places=4)
+    calcium = models.DecimalField(max_digits=14, decimal_places=4)
+    phosphorus = models.DecimalField(max_digits=14, decimal_places=4)
+    iron = models.DecimalField(max_digits=14, decimal_places=4)
+    retinol = models.DecimalField(max_digits=14, decimal_places=4)
+    beta_carotene = models.DecimalField(max_digits=14, decimal_places=4)
+    vitamin_A = models.DecimalField(max_digits=14, decimal_places=4)
+    vitaminE = models.DecimalField(max_digits=14, decimal_places=4)
+    thiamin = models.DecimalField(max_digits=14, decimal_places=4)
+    riboflavin = models.DecimalField(max_digits=14, decimal_places=4)
+    niacin = models.DecimalField(max_digits=14, decimal_places=4)
+    vitamin_C = models.DecimalField(max_digits=14, decimal_places=4)
+
+    class Meta:
+        verbose_name = "สารอาหาร"
+        verbose_name_plural = "กลุ่มสารอาหาร"
+
+
+class IngredientCategory(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "หมวดหมู่วัตถุดิบ"
+        verbose_name_plural = "กลุ่มหมวดหมู่วัตถุดิบ"
+
+
+class FoodCategory(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "หมวดหมู่อาหาร"
+        verbose_name_plural = "กลุ่มหมวดหมู่อาหาร"
+
+
 class Ingredient(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    calories = models.IntegerField()
+    description = models.CharField(max_length=255, blank=True, null=True)
+    calories = models.IntegerField(default=0)
+    nutrient = models.ForeignKey(Nutrient,
+                                 on_delete=models.SET_NULL,
+                                 blank=True,
+                                 null=True)
+    element = models.ForeignKey(Element,
+                                on_delete=models.SET_NULL,
+                                blank=True,
+                                null=True)
+    category = models.ManyToManyField(IngredientCategory)
+    healing = models.ManyToManyField(Disease, related_name="healing")
+    affect = models.ManyToManyField(Disease, related_name="affect")
 
     def __str__(self):
         return self.name
@@ -27,8 +98,26 @@ class Ingredient(models.Model):
 
 class Food(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
     calories = models.IntegerField()
+    nutrient = models.ForeignKey(Nutrient,
+                                 on_delete=models.SET_NULL,
+                                 blank=True,
+                                 null=True)
+    ingredients = models.ManyToManyField(Ingredient, through='Menu')
+    category = models.ManyToManyField(FoodCategory)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = "อาหาร"
         verbose_name_plural = "กลุ่มอาหาร"
+
+
+class Menu(models.Model):
+    food = models.ForeignKey(Food, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    weight = models.DecimalField(max_digits=14, decimal_places=4)
+
+
