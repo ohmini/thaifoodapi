@@ -5,6 +5,7 @@
 
 *.py[cod]
 *$py.class
+settings.py
 
 # C extensions
 *.so
