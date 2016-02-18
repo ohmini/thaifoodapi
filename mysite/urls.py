@@ -15,13 +15,18 @@
 from django.conf.urls import url, include
 from rest_framework import routers
 from django.contrib import admin
-from thaifood.viewset import UserViewSet, FoodViewSet, IngredientViewSet
+from thaifood.viewset import *
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
+# router.register(r'users', UserViewSet)
 router.register(r'foods', FoodViewSet)
 router.register(r'ingredients', IngredientViewSet)
+router.register(r'foodCategories', FoodCategoryViewSet)
+router.register(r'ingredientCategories', IngredientCategoryViewSet)
+router.register(r'elements', ElementViewSet)
+router.register(r'diseases', DiseaseViewSet)
+router.register(r'nutrients', NutrientViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

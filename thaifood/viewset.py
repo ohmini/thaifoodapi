@@ -1,7 +1,8 @@
 from rest_framework import viewsets
-from .models import Food, Ingredient
-from .serializer import UserSerializer, FoodSerializer, IngredientSerializer
+from .serializer import *
 from django.contrib.auth.models import User
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 
 # ViewSets define the view behavior.
@@ -14,7 +15,44 @@ class FoodViewSet(viewsets.ModelViewSet):
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
 
+    def list(self, request):
+        print request.query_params
+        queryset = Food.objects.all()
+        serializer = FoodSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = Food.objects.all()
+        food = get_object_or_404(queryset, pk=pk)
+        serializer = FoodSerializer(food)
+        return Response(serializer.data)
+
 
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+
+
+class ElementViewSet(viewsets.ModelViewSet):
+    queryset = Element.objects.all()
+    serializer_class = ElementSerializer
+
+
+class FoodCategoryViewSet(viewsets.ModelViewSet):
+    queryset = FoodCategory.objects.all()
+    serializer_class = FoodCategorySerializer
+
+
+class IngredientCategoryViewSet(viewsets.ModelViewSet):
+    queryset = IngredientCategory.objects.all()
+    serializer_class = IngredientCategorySerializer
+
+
+class DiseaseViewSet(viewsets.ModelViewSet):
+    queryset = Disease.objects.all()
+    serializer_class = DiseaseSerializer
+
+
+class NutrientViewSet(viewsets.ModelViewSet):
+    queryset = Nutrient.objects.all()
+    serializer_class = NutrientSerializer
