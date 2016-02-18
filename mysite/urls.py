@@ -13,39 +13,9 @@
 # limitations under the License.
 
 from django.conf.urls import url, include
-from django.contrib.auth.models import User
-from thaifood.models import Ingredient, Food, Element
-from rest_framework import routers, serializers, viewsets
+from rest_framework import routers
 from django.contrib import admin
-
-# Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'is_staff')
-
-class FoodSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Food
-        fields = ('id', 'name', 'calories')
-
-class IngredientSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Ingredient
-        fields = ('id', 'name', 'calories')
-
-# ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-class FoodViewSet(viewsets.ModelViewSet):
-    queryset = Food.objects.all()
-    serializer_class = FoodSerializer
-
-class IngredientViewSet(viewsets.ModelViewSet):
-    queryset = Ingredient.objects.all()
-    serializer_class = IngredientSerializer
+from thaifood.viewset import UserViewSet, FoodViewSet, IngredientViewSet
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
