@@ -20,6 +20,9 @@ class Disease(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=255)
     healing_element = models.ForeignKey(Element, null=True)
+    created_by = models.CharField(max_length=50)
+    created_date = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -47,6 +50,9 @@ class Nutrient(models.Model):
     riboflavin = models.DecimalField(max_digits=14, decimal_places=4)
     niacin = models.DecimalField(max_digits=14, decimal_places=4)
     vitamin_C = models.DecimalField(max_digits=14, decimal_places=4)
+    created_by = models.CharField(max_length=50)
+    created_date = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "สารอาหาร"
@@ -56,6 +62,9 @@ class Nutrient(models.Model):
 @python_2_unicode_compatible
 class IngredientCategory(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    created_by = models.CharField(max_length=50)
+    created_date = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -68,6 +77,9 @@ class IngredientCategory(models.Model):
 @python_2_unicode_compatible
 class FoodCategory(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    created_by = models.CharField(max_length=50)
+    created_date = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -93,6 +105,9 @@ class Ingredient(models.Model):
     category = models.ManyToManyField(IngredientCategory)
     healing = models.ManyToManyField(Disease, related_name="healing")
     affect = models.ManyToManyField(Disease, related_name="affect")
+    created_by = models.CharField(max_length=50)
+    created_date = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -113,6 +128,9 @@ class Food(models.Model):
                                  null=True)
     ingredients = models.ManyToManyField(Ingredient, through='Menu')
     category = models.ManyToManyField(FoodCategory)
+    created_by = models.CharField(max_length=50)
+    created_date = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name

@@ -3,6 +3,7 @@ from .serializer import *
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from rest_framework.pagination import LimitOffsetPagination
 
 
 # ViewSets define the view behavior.
@@ -14,6 +15,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class FoodViewSet(viewsets.ModelViewSet):
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
+    pagination_class = LimitOffsetPagination
 
     def list(self, request):
         print request.query_params
