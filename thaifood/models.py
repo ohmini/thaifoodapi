@@ -23,7 +23,7 @@ class Disease(models.Model):
     healing_element = models.ForeignKey(Element, null=True)
     created_by = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
+    last_modified = models.DateTimeField(auto_now=True, null=True)
     last_modified_by = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
@@ -53,7 +53,7 @@ class Nutrient(models.Model):
     riboflavin = models.DecimalField(max_digits=14, decimal_places=4)
     niacin = models.DecimalField(max_digits=14, decimal_places=4)
     vitamin_C = models.DecimalField(max_digits=14, decimal_places=4)
-    last_modified = models.DateTimeField(auto_now=True)
+    last_modified = models.DateTimeField(auto_now=True, null=True)
     last_modified_by = models.CharField(max_length=30, null=True, blank=True)
     code = models.IntegerField(default=0)
 
@@ -71,7 +71,7 @@ class IngredientCategory(models.Model):
     name = models.CharField(max_length=50, unique=True)
     created_by = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
+    last_modified = models.DateTimeField(auto_now=True, null=True)
     last_modified_by = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
@@ -88,7 +88,7 @@ class FoodCategory(models.Model):
     name = models.CharField(max_length=50, unique=True)
     created_by = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
+    last_modified = models.DateTimeField(auto_now=True, null=True)
     last_modified_by = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
@@ -118,7 +118,7 @@ class Ingredient(models.Model):
     affect = models.ManyToManyField(Disease, related_name="affect")
     created_by = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
+    last_modified = models.DateTimeField(auto_now=True, null=True)
     last_modified_by = models.CharField(max_length=30, null=True, blank=True)
     code = models.IntegerField(default=0)
 
@@ -144,7 +144,7 @@ class Food(models.Model):
     category = models.ManyToManyField(FoodCategory)
     created_by = models.CharField(max_length=50, default="")
     created_date = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
+    last_modified = models.DateTimeField(auto_now=True, null=True)
     last_modified_by = models.CharField(max_length=30, null=True, blank=True)
     code = models.IntegerField(default=0)
 

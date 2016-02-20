@@ -17,22 +17,23 @@ class FoodViewSet(viewsets.ModelViewSet):
     serializer_class = FoodSerializer
     pagination_class = LimitOffsetPagination
 
-    def list(self, request):
-        print request.query_params
-        queryset = Food.objects.all()
-        serializer = FoodSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def retrieve(self, request, pk=None):
-        queryset = Food.objects.all()
-        food = get_object_or_404(queryset, pk=pk)
-        serializer = FoodSerializer(food)
-        return Response(serializer.data)
+    # def list(self, request):
+    #     print request.query_params
+    #     queryset = Food.objects.all()
+    #     serializer = FoodSerializer(queryset, many=True)
+    #     return Response(serializer.data)
+    #
+    # def retrieve(self, request, pk=None):
+    #     queryset = Food.objects.all()
+    #     food = get_object_or_404(queryset, pk=pk)
+    #     serializer = FoodSerializer(food)
+    #     return Response(serializer.data)
 
 
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+    pagination_class = LimitOffsetPagination
 
 
 class ElementViewSet(viewsets.ModelViewSet):
