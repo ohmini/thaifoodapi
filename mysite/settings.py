@@ -90,8 +90,11 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
 }
+
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
@@ -100,27 +103,18 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 # [START db_setup]
-import os
+
 if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
     # Running on production App Engine, so use a Google Cloud SQL database.
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/<DATABASE INSTANCE>',
-            'NAME': 'thaifood',
-            'USER': '<USERNAME>',
-            'PASSWORD' : '<PASSWORD>',
+
         }
     }
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'thaifood',
-            'USER': '<USER>',
-            'PASSWORD': '<PASSWORD>',
-            'HOST': '<IP>',
-            'PORT': '3306',
+            
         }
     }
 # [END db_setup]
