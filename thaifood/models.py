@@ -13,6 +13,7 @@ class Element(models.Model):
     class Meta:
         verbose_name = "ธาตุ"
         verbose_name_plural = "ธาตุต่างๆ"
+        db_table = 'element'
 
 
 @python_2_unicode_compatible
@@ -23,6 +24,7 @@ class Disease(models.Model):
     created_by = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+    last_modified_by = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -30,6 +32,7 @@ class Disease(models.Model):
     class Meta:
         verbose_name = "เชื้อโรค"
         verbose_name_plural = "กลุ่มเชื้อโรค"
+        db_table = 'disease'
 
 
 class Nutrient(models.Model):
@@ -50,13 +53,17 @@ class Nutrient(models.Model):
     riboflavin = models.DecimalField(max_digits=14, decimal_places=4)
     niacin = models.DecimalField(max_digits=14, decimal_places=4)
     vitamin_C = models.DecimalField(max_digits=14, decimal_places=4)
-    created_by = models.CharField(max_length=50)
-    created_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+    last_modified_by = models.CharField(max_length=30, null=True, blank=True)
+    code = models.IntegerField(default=0)
+
+    def __str__(self):
+        return 'id: ' + str(self._get_pk_val())
 
     class Meta:
         verbose_name = "สารอาหาร"
         verbose_name_plural = "กลุ่มสารอาหาร"
+        db_table = 'nutrient'
 
 
 @python_2_unicode_compatible
@@ -65,6 +72,7 @@ class IngredientCategory(models.Model):
     created_by = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+    last_modified_by = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -72,6 +80,7 @@ class IngredientCategory(models.Model):
     class Meta:
         verbose_name = "หมวดหมู่วัตถุดิบ"
         verbose_name_plural = "กลุ่มหมวดหมู่วัตถุดิบ"
+        db_table = 'ingredient_type'
 
 
 @python_2_unicode_compatible
@@ -80,6 +89,7 @@ class FoodCategory(models.Model):
     created_by = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+    last_modified_by = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -87,6 +97,7 @@ class FoodCategory(models.Model):
     class Meta:
         verbose_name = "หมวดหมู่อาหาร"
         verbose_name_plural = "กลุ่มหมวดหมู่อาหาร"
+        db_table = 'food_type'
 
 
 @python_2_unicode_compatible
@@ -108,6 +119,8 @@ class Ingredient(models.Model):
     created_by = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+    last_modified_by = models.CharField(max_length=30, null=True, blank=True)
+    code = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -115,22 +128,25 @@ class Ingredient(models.Model):
     class Meta:
         verbose_name = "วัตถุดิบ"
         verbose_name_plural = "กลุ่มวัตถุดิบ"
+        db_table = 'ingredient'
 
 
 @python_2_unicode_compatible
 class Food(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    description = models.CharField(max_length=255, blank=True, null=True)
-    calories = models.IntegerField()
+    description = models.CharField(max_length=255, blank=True, null=True, default="")
+    calories = models.IntegerField(default=0)
     nutrient = models.ForeignKey(Nutrient,
                                  on_delete=models.SET_NULL,
                                  blank=True,
                                  null=True)
     ingredients = models.ManyToManyField(Ingredient, through='Menu')
     category = models.ManyToManyField(FoodCategory)
-    created_by = models.CharField(max_length=50)
+    created_by = models.CharField(max_length=50, default="")
     created_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+    last_modified_by = models.CharField(max_length=30, null=True, blank=True)
+    code = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -138,11 +154,15 @@ class Food(models.Model):
     class Meta:
         verbose_name = "อาหาร"
         verbose_name_plural = "กลุ่มอาหาร"
+        db_table = 'food'
 
 
 class Menu(models.Model):
     food = models.ForeignKey(Food, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     weight = models.DecimalField(max_digits=14, decimal_places=4)
+    name = models.CharField(max_length=100, blank=True, default="")
 
+    class Meta:
+        db_table = 'menu'
 
