@@ -17,6 +17,16 @@ class FoodViewSet(viewsets.ModelViewSet):
     serializer_class = FoodSerializer
     pagination_class = LimitOffsetPagination
 
+    def get_queryset(self):
+        queryset = Food.objects.all()
+        mincal = self.request.query_params.get('mincal', None)
+        maxcal = self.request.query_params.get('maxcal', None)
+        if mincal is not None:
+            queryset = queryset.filter(calories__gt=mincal)
+        if maxcal is not None:
+            queryset = queryset.filter(calories__lt=maxcal)
+        return queryset
+
     # def list(self, request):
     #     print request.query_params
     #     queryset = Food.objects.all()
@@ -34,6 +44,19 @@ class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     pagination_class = LimitOffsetPagination
+
+    def get_queryset(self):
+        queryset = Ingredient.objects.all()
+        mincal = self.request.query_params.get('mincal', None)
+        maxcal = self.request.query_params.get('maxcal', None)
+        element = self.request.query_params.get('element', None)
+        if mincal is not None:
+            queryset = queryset.filter(calories__gt=mincal)
+        if maxcal is not None:
+            queryset = queryset.filter(calories__lt=maxcal)
+        if element is not None:
+            queryset = queryset.filter(code=element.lower())
+        return queryset
 
 
 class ElementViewSet(viewsets.ModelViewSet):
