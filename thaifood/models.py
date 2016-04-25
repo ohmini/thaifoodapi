@@ -55,9 +55,6 @@ class Nutrient(models.Model):
     riboflavin = models.DecimalField(max_digits=14, decimal_places=4)
     niacin = models.DecimalField(max_digits=14, decimal_places=4)
     vitamin_C = models.DecimalField(max_digits=14, decimal_places=4)
-    last_modified = models.DateTimeField(auto_now=True, null=True)
-    last_modified_by = models.CharField(max_length=30, null=True, blank=True)
-    code = models.IntegerField(default=0)
 
     def __str__(self):
         return 'id: ' + str(self._get_pk_val())
