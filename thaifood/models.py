@@ -22,6 +22,7 @@ class Disease(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=255)
     healing_element = models.ForeignKey(Element, null=True)
+    is_congenital = models.BooleanField(default=False)
     created_by = models.CharField(max_length=50)
     created_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True, null=True)

@@ -1,8 +1,6 @@
 from rest_framework import viewsets
 from .serializer import *
 from django.contrib.auth.models import User
-from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
 from rest_framework.pagination import LimitOffsetPagination
 
 
@@ -26,18 +24,6 @@ class FoodViewSet(viewsets.ModelViewSet):
         if maxcal is not None:
             queryset = queryset.filter(calories__lt=maxcal)
         return queryset
-
-    # def list(self, request):
-    #     print request.query_params
-    #     queryset = Food.objects.all()
-    #     serializer = FoodSerializer(queryset, many=True)
-    #     return Response(serializer.data)
-    #
-    # def retrieve(self, request, pk=None):
-    #     queryset = Food.objects.all()
-    #     food = get_object_or_404(queryset, pk=pk)
-    #     serializer = FoodSerializer(food)
-    #     return Response(serializer.data)
 
 
 class IngredientViewSet(viewsets.ModelViewSet):

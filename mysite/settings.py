@@ -108,13 +108,22 @@ if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
     # Running on production App Engine, so use a Google Cloud SQL database.
     DATABASES = {
         'default': {
-
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/thaifoodapi:thaifoodapi',
+            'NAME': 'thaifood',
+            'USER': 'root',
+            'PASSWORD': '1234',
         }
     }
 else:
     DATABASES = {
         'default': {
-            
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'thaifood',
+            'USER': 'thaifood',
+            'PASSWORD': 'nros3517',
+            'HOST': '173.194.247.146',
+            'PORT': '3306',
         }
     }
 # [END db_setup]
@@ -124,7 +133,7 @@ else:
 
 LANGUAGE_CODE = 'th-th'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bangkok'
 
 USE_I18N = True
 
