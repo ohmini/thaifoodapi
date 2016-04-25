@@ -14,14 +14,14 @@ class FoodSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Food
-        fields = '__all__'
+        fields = ('id', 'name', 'description', 'calories', 'nutrient', 'ingredients')
         depth = 1
 
 
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = '__all__'
+        fields = ('id', 'name', 'description', 'calories', 'nutrient', 'element')
         depth = 1
 
 
@@ -56,5 +56,5 @@ class ElementSerializer(serializers.ModelSerializer):
 class DiseaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Disease
-        fields = '__all__'
+        fields = ('id', 'name', 'description', 'is_congenital')
         depth = 1

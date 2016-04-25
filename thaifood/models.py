@@ -49,12 +49,12 @@ class Nutrient(models.Model):
     iron = models.DecimalField(max_digits=14, decimal_places=4)
     retinol = models.DecimalField(max_digits=14, decimal_places=4)
     beta_carotene = models.DecimalField(max_digits=14, decimal_places=4)
-    vitamin_A = models.DecimalField(max_digits=14, decimal_places=4)
-    vitaminE = models.DecimalField(max_digits=14, decimal_places=4)
+    vitamin_a = models.DecimalField(max_digits=14, decimal_places=4)
+    vitamin_e = models.DecimalField(max_digits=14, decimal_places=4)
     thiamin = models.DecimalField(max_digits=14, decimal_places=4)
     riboflavin = models.DecimalField(max_digits=14, decimal_places=4)
     niacin = models.DecimalField(max_digits=14, decimal_places=4)
-    vitamin_C = models.DecimalField(max_digits=14, decimal_places=4)
+    vitamin_c = models.DecimalField(max_digits=14, decimal_places=4)
 
     def __str__(self):
         return 'id: ' + str(self._get_pk_val())
