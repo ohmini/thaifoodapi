@@ -20,10 +20,9 @@ class Element(models.Model):
 @python_2_unicode_compatible
 class Disease(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    description = models.CharField(max_length=255)
-    healing_element = models.ForeignKey(Element, null=True)
+    description = models.CharField(max_length=255, null=True)
     is_congenital = models.BooleanField(default=False)
-    created_by = models.CharField(max_length=50)
+    created_by = models.CharField(max_length=50, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True, null=True)
     last_modified_by = models.CharField(max_length=30, null=True, blank=True)
@@ -112,13 +111,9 @@ class Ingredient(models.Model):
                                 on_delete=models.SET_NULL,
                                 blank=True,
                                 null=True)
-    category = models.ManyToManyField(IngredientCategory)
-    healing = models.ManyToManyField(Disease, related_name="healing")
-    affect = models.ManyToManyField(Disease, related_name="affect")
-    created_by = models.CharField(max_length=50)
-    created_date = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True, null=True)
-    last_modified_by = models.CharField(max_length=30, null=True, blank=True)
+    category = models.ManyToManyField(IngredientCategory, blank=True)
+    healing = models.ManyToManyField(Disease, related_name="healing", blank=True)
+    affect = models.ManyToManyField(Disease, related_name="affect", blank=True)
     code = models.IntegerField(default=0)
 
     def __str__(self):

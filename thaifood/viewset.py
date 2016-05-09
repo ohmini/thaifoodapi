@@ -16,14 +16,53 @@ class FoodViewSet(viewsets.ModelViewSet):
     pagination_class = LimitOffsetPagination
 
     def get_queryset(self):
-        queryset = Food.objects.all()
+        food_all = Food.objects.all()
+        queryset = food_all
         queryset = get_query_by_nutrients(queryset, self.request)
-        return queryset
+        affects = get_query_params('affects', self.request)
+        affects_all_match = get_query_params('affects_all_match', self.request)
+        elements = get_query_params('elements', self.request)
+        elements_all_match = get_query_params('elements_all_match', self.request)
+        ingredient_params = get_query_params('ingredients', self.request)
+        ingredients_all_match = get_query_params('ingredients_all_match', self.request)
+        random_params = self.request.query_params.get('random', None)
+
+        if ingredients_all_match is not None:
+            ingredient_list = ingredients_all_match.split(',')
+            for ingredient in ingredient_list:
+                queryset = queryset.filter(ingredients__pk=ingredient)
+
+        if affects_all_match is not None:
+            affect_list = affects_all_match.split(',')
+            for affect in affect_list:
+                queryset = queryset.filter(ingredients__affect__pk=affect)
+
+        if elements_all_match is not None:
+            element_list = elements_all_match.split(',')
+            for element in element_list:
+                queryset = queryset.filter(ingredients__element__code=element)
+
+        if ingredient_params is not None:
+            ingredients = ingredient_params.split(',')
+            queryset = queryset.filter(ingredients__pk__in=ingredients)
+
+        if elements is not None:
+            element_list = elements.split(',')
+            queryset = queryset.filter(ingredients__element__code__in=element_list)
+
+        if affects is not None:
+            affect_list = affects.split(',')
+            queryset = queryset.filter(ingredients__affect__pk__in=affect_list)
+
+        if random_params is not None:
+            queryset = queryset.order_by('?')
+
+        return queryset.distinct()
 
 
 def get_query_by_nutrients(queryset, request):
-    min_cal = get_query_params('mincallories', request)
-    max_cal = get_query_params('maxcallories', request)
+    min_cal = get_query_params('mincalories', request)
+    max_cal = get_query_params('maxcalories', request)
     min_water = get_query_params('minwater', request)
     max_water = get_query_params('maxwater', request)
     min_protien = get_query_params('minprotien', request)
@@ -64,73 +103,73 @@ def get_query_by_nutrients(queryset, request):
     if max_cal is not None:
         queryset = queryset.filter(calories__lt=max_cal)
     if min_water is not None:
-        queryset = queryset.filter(water__gt=min_water)
+        queryset = queryset.filter(nutrient__water__gt=min_water)
     if max_water is not None:
-        queryset = queryset.filter(water__lt=max_water)
+        queryset = queryset.filter(nutrient__water__lt=max_water)
     if min_protien is not None:
-        queryset = queryset.filter(protien__gt=min_protien)
+        queryset = queryset.filter(nutrient__protien__gt=min_protien)
     if max_protien is not None:
-        queryset = queryset.filter(protien__lt=max_protien)
+        queryset = queryset.filter(nutrient__protien__lt=max_protien)
     if min_fat is not None:
-        queryset = queryset.filter(fat__gt=min_fat)
+        queryset = queryset.filter(nutrient__fat__gt=min_fat)
     if max_fat is not None:
-        queryset = queryset.filter(fat__lt=max_fat)
+        queryset = queryset.filter(nutrient__fat__lt=max_fat)
     if min_carbohydrate is not None:
-        queryset = queryset.filter(carbohydrate__gt=min_carbohydrate)
+        queryset = queryset.filter(nutrient__carbohydrate__gt=min_carbohydrate)
     if max_carbohydrate is not None:
-        queryset = queryset.filter(carbohydrate__lt=max_carbohydrate)
+        queryset = queryset.filter(nutrient__carbohydrate__lt=max_carbohydrate)
     if min_diearyfiber is not None:
-        queryset = queryset.filter(diearyfiber__gt=min_diearyfiber)
+        queryset = queryset.filter(nutrient__diearyfiber__gt=min_diearyfiber)
     if max_diearyfiber is not None:
-        queryset = queryset.filter(diearyfiber__lt=max_diearyfiber)
+        queryset = queryset.filter(nutrient__diearyfiber__lt=max_diearyfiber)
     if min_ash is not None:
-        queryset = queryset.filter(ash__gt=min_ash)
+        queryset = queryset.filter(nutrient__ash__gt=min_ash)
     if max_ash is not None:
-        queryset = queryset.filter(ash__lt=max_ash)
+        queryset = queryset.filter(nutrient__ash__lt=max_ash)
     if min_calcium is not None:
-        queryset = queryset.filter(calcium__gt=min_calcium)
+        queryset = queryset.filter(nutrient__calcium__gt=min_calcium)
     if max_calcium is not None:
-        queryset = queryset.filter(calcium__lt=max_calcium)
+        queryset = queryset.filter(nutrient__calcium__lt=max_calcium)
     if min_phosphorus is not None:
-        queryset = queryset.filter(phosphorus__gt=min_phosphorus)
+        queryset = queryset.filter(nutrient__phosphorus__gt=min_phosphorus)
     if max_phosphorus is not None:
-        queryset = queryset.filter(phosphorus__lt=max_phosphorus)
+        queryset = queryset.filter(nutrient__phosphorus__lt=max_phosphorus)
     if min_iron is not None:
-        queryset = queryset.filter(iron__gt=min_iron)
+        queryset = queryset.filter(nutrient__iron__gt=min_iron)
     if max_iron is not None:
-        queryset = queryset.filter(iron__lt=max_iron)
+        queryset = queryset.filter(nutrient__iron__lt=max_iron)
     if min_retinol is not None:
-        queryset = queryset.filter(retinol__gt=min_retinol)
+        queryset = queryset.filter(nutrient__retinol__gt=min_retinol)
     if max_retinol is not None:
-        queryset = queryset.filter(retinol__lt=max_retinol)
+        queryset = queryset.filter(nutrient__retinol__lt=max_retinol)
     if min_betacarotene is not None:
-        queryset = queryset.filter(betacarotene__gt=min_betacarotene)
+        queryset = queryset.filter(nutrient__betacarotene__gt=min_betacarotene)
     if max_betacarotene is not None:
-        queryset = queryset.filter(betacarotene__lt=max_betacarotene)
+        queryset = queryset.filter(nutrient__betacarotene__lt=max_betacarotene)
     if min_vitamina is not None:
-        queryset = queryset.filter(vitamin_a__gt=min_vitamina)
+        queryset = queryset.filter(nutrient__vitamin_a__gt=min_vitamina)
     if max_vitamina is not None:
-        queryset = queryset.filter(vitamin_a__lt=max_vitamina)
+        queryset = queryset.filter(nutrient__vitamin_a__lt=max_vitamina)
     if min_vitaminc is not None:
-        queryset = queryset.filter(vitamin_c__gt=min_vitaminc)
+        queryset = queryset.filter(nutrient__vitamin_c__gt=min_vitaminc)
     if max_vitaminc is not None:
-        queryset = queryset.filter(vitamin_c__lt=max_vitaminc)
+        queryset = queryset.filter(nutrient__vitamin_c__lt=max_vitaminc)
     if min_vitamine is not None:
-        queryset = queryset.filter(vitamin_e__gt=min_vitamine)
+        queryset = queryset.filter(nutrient__vitamin_e__gt=min_vitamine)
     if max_vitamine is not None:
-        queryset = queryset.filter(vitamin_e__lt=max_vitamine)
+        queryset = queryset.filter(nutrient__vitamin_e__lt=max_vitamine)
     if min_thiamin is not None:
-        queryset = queryset.filter(thiamin__gt=min_thiamin)
+        queryset = queryset.filter(nutrient__thiamin__gt=min_thiamin)
     if max_thiamin is not None:
-        queryset = queryset.filter(thiamin__lt=max_thiamin)
+        queryset = queryset.filter(nutrient__thiamin__lt=max_thiamin)
     if min_riboflavin is not None:
-        queryset = queryset.filter(riboflavin__gt=min_riboflavin)
+        queryset = queryset.filter(nutrient__riboflavin__gt=min_riboflavin)
     if max_riboflavin is not None:
-        queryset = queryset.filter(riboflavin__lt=max_riboflavin)
+        queryset = queryset.filter(nutrient__riboflavin__lt=max_riboflavin)
     if min_niacin is not None:
-        queryset = queryset.filter(niacin__gt=min_niacin)
+        queryset = queryset.filter(nutrient__niacin__gt=min_niacin)
     if max_niacin is not None:
-        queryset = queryset.filter(niacin__lt=max_niacin)
+        queryset = queryset.filter(nutrient__niacin__lt=max_niacin)
 
     return queryset
 
@@ -146,15 +185,16 @@ class IngredientViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Ingredient.objects.all()
-        mincal = self.request.query_params.get('mincallories', None)
-        maxcal = self.request.query_params.get('maxcallories', None)
+        queryset = get_query_by_nutrients(queryset, self.request)
         element = self.request.query_params.get('element', None)
-        if mincal is not None:
-            queryset = queryset.filter(calories__gt=mincal)
-        if maxcal is not None:
-            queryset = queryset.filter(calories__lt=maxcal)
+        random_params = self.request.query_params.get('random', None)
+
         if element is not None:
-            queryset = queryset.filter(code=element.lower())
+            queryset = queryset.filter(element__code=element.lower())
+
+        if random_params is not None:
+            queryset = queryset.order_by('?')
+
         return queryset
 
 
