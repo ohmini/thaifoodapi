@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Thai Food API</title>
+
+        <meta charset="utf-8">
+        <meta name="author" content="Ratthasorn Thassana">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+          <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Thaifood API</a>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            {% block content %}
+                This is default content
+            {% endblock %}
+        </div>
+    </body>
+</html>

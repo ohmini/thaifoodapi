@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Find Foods</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label>Search By</label>
+                        <select class="form-control" id="searchBy">
+                            <option value="id">id</option>
+                            <option value="ingredient">ingredient id</option>
+                        </select>
+                        <input type="text" class="form-control" id="searchId">
+                    </div>
+                </form>
+            </div>
+        </div>
+          <div class="row" style="margin-top: 20px">
+              <div class="col-md-12 col-sm-12">
+                  <div class="panel panel-primary">
+                  <div class="panel-body" id="url">
+
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>calories</th>
+                    <th>json</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <script type="text/javascript" src="/static/js/jquery-1.12.2.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
+{% endblock %}
