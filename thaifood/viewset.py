@@ -16,8 +16,7 @@ class FoodViewSet(viewsets.ModelViewSet):
     pagination_class = LimitOffsetPagination
 
     def get_queryset(self):
-        food_all = Food.objects.all()
-        queryset = food_all
+        queryset = Food.objects.all()
         queryset = get_query_by_nutrients(queryset, self.request)
         affects = get_query_params('affects', self.request)
         affects_all_match = get_query_params('affects_all_match', self.request)
@@ -26,6 +25,7 @@ class FoodViewSet(viewsets.ModelViewSet):
         ingredient_params = get_query_params('ingredients', self.request)
         ingredients_all_match = get_query_params('ingredients_all_match', self.request)
         random_params = self.request.query_params.get('random', None)
+        exclude_params = self.request.query_params.get('exclude', None)
 
         if ingredients_all_match is not None:
             ingredient_list = ingredients_all_match.split(',')
@@ -53,6 +53,10 @@ class FoodViewSet(viewsets.ModelViewSet):
         if affects is not None:
             affect_list = affects.split(',')
             queryset = queryset.filter(ingredients__affect__pk__in=affect_list)
+
+        if exclude_params is not None:
+            if exclude_params == 'true':
+                queryset = Food.objects.exclude(id__in=queryset)
 
         if random_params is not None:
             queryset = queryset.order_by('?')
@@ -188,9 +192,14 @@ class IngredientViewSet(viewsets.ModelViewSet):
         queryset = get_query_by_nutrients(queryset, self.request)
         element = self.request.query_params.get('element', None)
         random_params = self.request.query_params.get('random', None)
+        exclude_params = self.request.query_params.get('exclude', None)
 
         if element is not None:
             queryset = queryset.filter(element__code=element.lower())
+
+        if exclude_params is not None:
+            if exclude_params == 'true':
+                queryset = Food.objects.exclude(id__in=queryset)
 
         if random_params is not None:
             queryset = queryset.order_by('?')
