@@ -491,7 +491,7 @@ class URLNode(Node):
                     current_app = None
 
         # Try to look up the URL twice: once given the view name, and again
-        # relative to what we guess is the "main" app. If they both fail,
+        # relative to what we guess is the "embedded" app. If they both fail,
         # re-raise the NoReverseMatch unless we're using the
         # {% url ... as var %} construct in which case return nothing.
         url = ''

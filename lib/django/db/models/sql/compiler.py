@@ -134,11 +134,11 @@ class SQLCompiler(object):
 
     def collapse_group_by(self, expressions, having):
         # If the DB can group by primary key, then group by the primary key of
-        # query's main model. Note that for PostgreSQL the GROUP BY clause must
+        # query's embedded model. Note that for PostgreSQL the GROUP BY clause must
         # include the primary key of every table, but for MySQL it is enough to
-        # have the main table's primary key.
+        # have the embedded table's primary key.
         if self.connection.features.allows_group_by_pk:
-            # The logic here is: if the main model's primary key is in the
+            # The logic here is: if the embedded model's primary key is in the
             # query, then set new_expressions to that field. If that happens,
             # then also add having expressions to group by.
             pk = None

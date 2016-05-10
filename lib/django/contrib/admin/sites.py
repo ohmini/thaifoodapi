@@ -492,7 +492,7 @@ class AdminSite(object):
     @never_cache
     def index(self, request, extra_context=None):
         """
-        Displays the main admin index page, which lists all of the installed
+        Displays the embedded admin index page, which lists all of the installed
         apps that have been registered in this site.
         """
         app_list = self.get_app_list(request)

@@ -36,7 +36,7 @@ def deconstructible(*args, **kwargs):
                 raise ValueError(
                     "Could not find object %s in %s.\n"
                     "Please note that you cannot serialize things like inner "
-                    "classes. Please move the object into the main module "
+                    "classes. Please move the object into the embedded module "
                     "body to use migrations.\n"
                     "For more information, see "
                     "https://docs.djangoproject.com/en/%s/topics/migrations/#serializing-values"

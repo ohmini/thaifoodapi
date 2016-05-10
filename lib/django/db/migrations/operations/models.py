@@ -195,7 +195,7 @@ class RenameModel(Operation):
         new_model = to_state.apps.get_model(app_label, self.new_name)
         if self.allow_migrate_model(schema_editor.connection.alias, new_model):
             old_model = from_state.apps.get_model(app_label, self.old_name)
-            # Move the main table
+            # Move the embedded table
             schema_editor.alter_db_table(
                 new_model,
                 old_model._meta.db_table,

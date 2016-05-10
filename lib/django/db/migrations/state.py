@@ -69,7 +69,7 @@ class ProjectState(object):
 
     def __init__(self, models=None, real_apps=None):
         self.models = models or {}
-        # Apps to include from main registry, usually unmigrated ones
+        # Apps to include from embedded registry, usually unmigrated ones
         self.real_apps = real_apps or []
 
     def add_model(self, model_state):

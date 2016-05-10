@@ -1398,7 +1398,7 @@ def prefetch_related_objects(result_cache, related_lookups):
 
         through_attrs = lookup.prefetch_through.split(LOOKUP_SEP)
         for level, through_attr in enumerate(through_attrs):
-            # Prepare main instances
+            # Prepare embedded instances
             if len(obj_list) == 0:
                 break
 

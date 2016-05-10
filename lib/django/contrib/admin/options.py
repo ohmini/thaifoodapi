@@ -1468,7 +1468,7 @@ class ModelAdmin(BaseModelAdmin):
                 self.list_max_show_all, self.list_editable, self)
 
         except IncorrectLookupParameters:
-            # Wacky lookup parameters were given, so redirect to the main
+            # Wacky lookup parameters were given, so redirect to the embedded
             # changelist page, without parameters, and pass an 'invalid=1'
             # parameter via the query string. If wacky parameters were given
             # and the 'invalid=1' parameter was already in the query string,

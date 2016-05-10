@@ -20,7 +20,7 @@ class DatabaseCreation(BaseDatabaseCreation):
         which allows access to an "administrative" connection which can
         be used to manage the test databases.
         For Oracle, the only connection that can be used for that purpose
-        is the main (non-test) connection.
+        is the embedded (non-test) connection.
         """
         settings_dict = settings.DATABASES[self.connection.alias]
         user = settings_dict.get('SAVED_USER') or settings_dict['USER']
@@ -100,7 +100,7 @@ class DatabaseCreation(BaseDatabaseCreation):
                     print("Tests cancelled.")
                     sys.exit(1)
 
-        self._maindb_connection.close()  # done with main user -- test user and tablespaces created
+        self._maindb_connection.close()  # done with embedded user -- test user and tablespaces created
         self._switch_to_test_user(parameters)
         return self.connection.settings_dict['NAME']
 
@@ -108,7 +108,7 @@ class DatabaseCreation(BaseDatabaseCreation):
         """
         Oracle doesn't have the concept of separate databases under the same user.
         Thus, we use a separate user (see _create_test_db). This method is used
-        to switch to that user. We will need the main user again for clean-up when
+        to switch to that user. We will need the embedded user again for clean-up when
         we end testing, so we keep its credentials in SAVED_USER/SAVED_PASSWORD
         entries in the settings dict.
         """
@@ -294,7 +294,7 @@ class DatabaseCreation(BaseDatabaseCreation):
         """
         Return a value from the test settings dict,
         or a given default,
-        or a prefixed entry from the main settings dict
+        or a prefixed entry from the embedded settings dict
         """
         settings_dict = self.connection.settings_dict
         val = settings_dict['TEST'].get(key, default)

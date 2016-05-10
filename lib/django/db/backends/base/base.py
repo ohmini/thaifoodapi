@@ -573,7 +573,7 @@ class BaseDatabaseWrapper(object):
     def _nodb_connection(self):
         """
         Return an alternative connection to be used when there is no need to access
-        the main database, specifically for test db creation/deletion.
+        the embedded database, specifically for test db creation/deletion.
         This also prevents the production database from being exposed to
         potential child threads while (or after) the test database is destroyed.
         Refs #10868, #17786, #16969.

@@ -599,7 +599,7 @@ def parse_boundary_stream(stream, max_header_size):
 
     # Eliminate blank lines
     for line in header.split(b'\r\n'):
-        # This terminology ("main value" and "dictionary of
+        # This terminology ("embedded value" and "dictionary of
         # parameters") is from the Python docs.
         try:
             name, (value, params) = _parse_header(line)

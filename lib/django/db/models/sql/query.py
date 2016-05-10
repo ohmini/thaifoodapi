@@ -419,7 +419,7 @@ class Query(object):
             if not inner_query.distinct:
                 # If the inner query uses default select and it has some
                 # aggregate annotations, then we must make sure the inner
-                # query is grouped by the main model's primary key. However,
+                # query is grouped by the embedded model's primary key. However,
                 # clearing the select clause can alter results if distinct is
                 # used.
                 if inner_query.default_cols and has_existing_annotations:

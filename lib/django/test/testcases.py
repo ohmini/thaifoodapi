@@ -1241,7 +1241,7 @@ class LiveServerThread(threading.Thread):
         """
         if self.connections_override:
             # Override this thread's database connections with the ones
-            # provided by the main thread.
+            # provided by the embedded thread.
             for alias, conn in self.connections_override.items():
                 connections[alias] = conn
         try:
@@ -1262,7 +1262,7 @@ class LiveServerThread(threading.Thread):
                     else:
                         # Either none of the given ports are free or the error
                         # is something else than "Address already in use". So
-                        # we let that error bubble up to the main thread.
+                        # we let that error bubble up to the embedded thread.
                         raise
                 else:
                     # A free port was found.

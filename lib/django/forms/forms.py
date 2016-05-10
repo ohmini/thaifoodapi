@@ -62,7 +62,7 @@ class DeclarativeFieldsMetaclass(MediaDefiningClass):
 @html_safe
 @python_2_unicode_compatible
 class BaseForm(object):
-    # This is the main implementation of all the Form logic. Note that this
+    # This is the embedded implementation of all the Form logic. Note that this
     # class is different than Form. See the comments by the Form class for more
     # information. Any improvements to the form API should be made to *this*
     # class, not to the Form class.

@@ -475,8 +475,8 @@ def get_language_from_request(request, check_path=False):
     """
     Analyzes the request to find what language the user wants the system to
     show. Only languages listed in settings.LANGUAGES are taken into account.
-    If the user requests a sublanguage where we have a main language, we send
-    out the main language.
+    If the user requests a sublanguage where we have a embedded language, we send
+    out the embedded language.
 
     If check_path is True, the URL path prefix will be checked for a language
     code, otherwise this is skipped for backwards compatibility.

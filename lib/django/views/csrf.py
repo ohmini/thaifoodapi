@@ -38,7 +38,7 @@ CSRF_FAILURE_TEMPLATE = """
 <body>
 <div id="summary">
   <h1>{{ title }} <span>(403)</span></h1>
-  <p>{{ main }}</p>
+  <p>{{ embedded }}</p>
 {% if no_referer %}
   <p>{{ no_referer1 }}</p>
   <p>{{ no_referer2 }}</p>
@@ -105,7 +105,7 @@ def csrf_failure(request, reason=""):
     t = Engine().from_string(CSRF_FAILURE_TEMPLATE)
     c = Context({
         'title': _("Forbidden"),
-        'main': _("CSRF verification failed. Request aborted."),
+        'embedded': _("CSRF verification failed. Request aborted."),
         'reason': reason,
         'no_referer': reason == REASON_NO_REFERER,
         'no_referer1': _(

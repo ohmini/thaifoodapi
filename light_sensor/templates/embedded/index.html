@@ -1,0 +1,81 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Light Sensor</title>
+
+        <meta charset="utf-8">
+        <meta name="author" content="Ratthasorn Thassana">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+          <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Light Sensor</a>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="panel panel-primary">
+              <div class="panel-heading">ข้อมูลทั่วไป</div>
+              <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    ปริมาณแสงล่าสุด
+                                </label>
+                                <div class="col-sm-9">
+                                    <input id="light" class="form-control"  value="" disabled >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    เวลา
+                                </label>
+                                <div class="col-sm-9">
+                                    <input id="time" class="form-control"  disabled >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    หมายเลขโทรศัพท์
+                                </label>
+                                <div class="col-sm-9">
+                                    <input id="tel" class="form-control"  value="" disabled >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <button id="refresh" type="button" class="btn btn-primary">ดูข้อมูลล่าสุด</button>
+                    </div>
+                </div>
+              </div>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>ปริมาณแสง</th>
+                            <th>เวลา</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data">
+                    </tbody>
+                </table>
+            </div>
+
+        <script type="text/javascript" src="/static/js/jquery-1.12.2.min.js"></script>
+        <script type="text/javascript" src="/static/js/moment.min.js"></script>
+        <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/static/js/sensor.js"></script>
+
+        </div>
+    </body>
+</html>

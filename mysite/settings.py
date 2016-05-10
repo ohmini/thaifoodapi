@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'thaifood',
+    'light_sensor',
 )
 
 MIDDLEWARE_CLASSES = (

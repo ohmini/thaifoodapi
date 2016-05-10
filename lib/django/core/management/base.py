@@ -272,7 +272,7 @@ class BaseCommand(object):
             parser.add_option('--settings',
                 help=(
                     'The Python path to a settings module, e.g. '
-                    '"myproject.settings.main". If this isn\'t provided, the '
+                    '"myproject.settings.embedded". If this isn\'t provided, the '
                     'DJANGO_SETTINGS_MODULE environment variable will be used.'
                 ),
             )
@@ -294,7 +294,7 @@ class BaseCommand(object):
             parser.add_argument('--settings',
                 help=(
                     'The Python path to a settings module, e.g. '
-                    '"myproject.settings.main". If this isn\'t provided, the '
+                    '"myproject.settings.embedded". If this isn\'t provided, the '
                     'DJANGO_SETTINGS_MODULE environment variable will be used.'
                 ),
             )

@@ -501,7 +501,7 @@ class MigrationWriter(object):
                     "Please note that due to Python 2 limitations, you cannot "
                     "serialize unbound method functions (e.g. a method "
                     "declared and used in the same class body). Please move "
-                    "the function into the main module body to use migrations.\n"
+                    "the function into the embedded module body to use migrations.\n"
                     "For more information, see "
                     "https://docs.djangoproject.com/en/%s/topics/migrations/#serializing-values"
                     % (value.__name__, module_name, get_docs_version()))

@@ -65,7 +65,7 @@ class Command(BaseCommand):
         db = options.get('database')
         connection = connections[db]
 
-        # If they asked for a migration listing, quit main execution flow and show it
+        # If they asked for a migration listing, quit embedded execution flow and show it
         if options.get("list", False):
             warnings.warn(
                 "The 'migrate --list' command is deprecated. Use 'showmigrations' instead.",
