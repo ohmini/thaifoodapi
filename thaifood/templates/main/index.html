@@ -19,13 +19,85 @@
                 </form>
             </div>
         </div>
+          <div class="row">
+              <div class="col-md-12 col-sm-12" style="margin-top: 20px">
+                  <form class="form-inline">
+                      <div class="form-group">
+                          <label>limit : </label>
+                          <input type="text" class="form-control" id="limit">
+                      </div>
+                      <div class="form-group">
+                          <label>offset : </label>
+                          <input type="text" class="form-control" id="offset">
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12 col-sm-12" style="margin-top: 20px">
+                  <form class="form-inline">
+                      <div class="form-group">
+                          <label>Element : </label>
+                          <div class="checkbox">
+                              <label>
+                                  <input type="checkbox" id="earth">
+                                  Earth</label>
+
+                          </div>
+                          <div class="checkbox" style="margin-left: 10px">
+                              <label>
+                                  <input type="checkbox" id="water">
+                                  Water</label>
+                          </div>
+                          <div class="checkbox" style="margin-left: 10px">
+                              <label>
+                                  <input type="checkbox" id="wind">
+                                  Wind</label>
+                          </div>
+                          <div class="checkbox" style="margin-left: 10px">
+                              <label>
+                                  <input type="checkbox" id="find">
+                                  Fire</label>
+                          </div>
+                      </div>
+
+                  </form>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-12 col-sm-12" style="margin-top: 20px">
+                  <form class="form-inline">
+                      <div class="form-group">
+                          <label>Option : </label>
+                          <div class="checkbox">
+                              <label>
+                                  <input type="checkbox" id="exclude">
+                                  exclude</label>
+
+                          </div>
+                          <div class="checkbox" style="margin-left: 10px">
+                              <label>
+                                  <input type="checkbox" id="random">
+                                  random</label>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
           <div class="row" style="margin-top: 20px">
               <div class="col-md-12 col-sm-12">
                   <div class="panel panel-primary">
                   <div class="panel-body" id="url">
-
                   </div>
                 </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-3 col-md-4">
+                  <button type="button" class="btn btn-default" id="submit">
+                      Submit
+                  </button>
               </div>
           </div>
       </div>
@@ -38,6 +110,8 @@
                     <th>json</th>
                 </tr>
             </thead>
+            <tbody id="data">
+            </tbody>
         </table>
     </div>
 
