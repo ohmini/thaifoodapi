@@ -9,11 +9,7 @@
             <div class="col-md-6 col-sm-12">
                 <form class="form-inline">
                     <div class="form-group">
-                        <label>Search By</label>
-                        <select class="form-control" id="searchBy">
-                            <option value="id">id</option>
-                            <option value="ingredient">ingredient id</option>
-                        </select>
+                        <label>Search By Ingredients : </label>
                         <input type="text" class="form-control" id="searchId">
                     </div>
                 </form>
@@ -23,11 +19,25 @@
               <div class="col-md-12 col-sm-12" style="margin-top: 20px">
                   <form class="form-inline">
                       <div class="form-group">
-                          <label>limit : </label>
+                          <label>Min Calories : </label>
+                          <input type="text" class="form-control" id="minCalories">
+                      </div>
+                      <div class="form-group" style="margin-left:15px">
+                          <label>Max Calories : </label>
+                          <input type="text" class="form-control" id="maxCalories">
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12 col-sm-12" style="margin-top: 20px">
+                  <form class="form-inline">
+                      <div class="form-group">
+                          <label>Limit : </label>
                           <input type="text" class="form-control" id="limit">
                       </div>
-                      <div class="form-group">
-                          <label>offset : </label>
+                      <div class="form-group" style="margin-left:15px">
+                          <label>Offset : </label>
                           <input type="text" class="form-control" id="offset">
                       </div>
                   </form>
@@ -56,7 +66,7 @@
                           </div>
                           <div class="checkbox" style="margin-left: 10px">
                               <label>
-                                  <input type="checkbox" id="find">
+                                  <input type="checkbox" id="fire">
                                   Fire</label>
                           </div>
                       </div>
@@ -65,6 +75,33 @@
               </div>
           </div>
 
+
+          <div class="row">
+              <div class="col-md-12 col-sm-12" style="margin-top: 20px">
+                  <form class="form-inline" style="margin-right:15px">
+                      <div class="form-group">
+                          <label>Min Nutrients : </label>
+                          <select class="form-control" id="minNutrients">
+                          </select>
+                          <input type="text" class="form-control" id="minNutrientsField">
+                          <button type="button" id="addMinNutrients" class="btn btn-default">Add</button>
+                      </div>
+                      <div class="form-group">
+                          <label>Max Nutrients : </label>
+                          <select class="form-control" id="maxNutrients">
+                          </select>
+                          <input type="text" class="form-control" id="maxNutrientsField">
+                          <button type="button" id="addMaxNutrients" class="btn btn-default">Add</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 col-sm-9" style="margin-top: 20px">
+                <ul class="list-group" id="nutrients">
+                </ul>
+            </div>
+          </div>
           <div class="row">
               <div class="col-md-12 col-sm-12" style="margin-top: 20px">
                   <form class="form-inline">
