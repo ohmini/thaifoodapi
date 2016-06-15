@@ -1,1 +1,5 @@
 cron:
+- description: "summary job"
+  url: /embedded
+  target: v1
+  schedule: every 1 mins

@@ -1,7 +1,7 @@
 (function($) {
     'use strict';
 
-    var baseUrl = 'https://thaifoodapi.appspot.com/api/foods/';
+    var baseUrl = 'http://thaifoodapi.appspot.com/api/foods/';
 
     var minNutrientSelection = [
         "minwater", "minprotien", "minfat", "mincarbohydrate", "mindiearyfiber",
@@ -36,6 +36,10 @@
     var fireElement = $('#fire');
     var excludeElement = $('#exclude');
     var randomElement = $('#random');
+    var nutrientBaseElement = $('#nutrients');
+    var minNutrientsField = $('#minNutrientsField');
+    var maxNutrientsField = $('#maxNutrientsField');
+    var elementAllSet = $('#elementAllSet');
 
 
     $('#addMaxNutrients').click(function(){
@@ -51,6 +55,9 @@
         addNutrientParameter(param, value);
     });
 
+    $('#reset').click(function(){
+       reset();
+    });
 
     $('#submit').click(function(){
         setUrl();
@@ -91,7 +98,12 @@
             windElement.is(":checked") || fireElement.is(":checked")
         ){
             var val = getElementParamValue();
-            params.push(createParamObj('elements', val));
+            if(elementAllSet.is(":checked")){
+                params.push(createParamObj('elements_all_match', val));
+            }else{
+                params.push(createParamObj('elements', val));
+            }
+
         }
 
         if(excludeElement.is(":checked")){
@@ -102,8 +114,13 @@
             params.push(createParamObj('random', 'true'));
         }
 
+
         console.log(params);
         var completeUrl = baseUrl + getUrl(params);
+
+        if($('.list-group-item').length > 0){
+            completeUrl += getNutrientParams(params);
+        }
         $('#url').text(completeUrl);
 
     }
@@ -124,6 +141,22 @@
         obj.key = key;
         obj.value = value;
         return obj;
+    }
+
+    function getNutrientParams(params){
+        var nutrientParams = '';
+
+        if(params.length > 0){
+            nutrientParams += '&';
+        }
+
+        $('.list-group-item').each(function(index){
+            nutrientParams += $(this).text();
+            if(index +1 < $('.list-group-item').length){
+                nutrientParams += '&';
+            }
+        })
+        return nutrientParams;
     }
 
     function getElementParamValue(){
@@ -200,6 +233,26 @@
         item += "</li>"
 
         $('#nutrients').append(item);
+    }
+
+    function reset(){
+        inputIdElement.val('');
+        urlText.val(baseUrl);
+        limitElement.val('');
+        offsetElement.val('');
+        minCaloriesElement.val('');
+        maxCaloriesElement.val('');
+        earthElement.prop('checked', false);
+        waterElement.prop('checked', false);
+        windElement.prop('checked', false);
+        fireElement.prop('checked', false);
+        excludeElement.prop('checked', false);
+        randomElement.prop('checked', false);
+        elementAllSet.prop('checked', false);
+        nutrientBaseElement.children().remove();
+        maxNutrientsField.val('');
+        minNutrientsField.val('');
+
     }
 
 }(jQuery));
