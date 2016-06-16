@@ -2,6 +2,16 @@ from rest_framework import viewsets
 from .serializer import *
 from django.contrib.auth.models import User
 from rest_framework.pagination import LimitOffsetPagination
+from models import Usage
+
+
+def save_request(request):
+    usage = Usage()
+    usage.ip = request.META.get('REMOTE_ADDR')
+    usage.method = request.method
+    usage.path = request.path
+    usage.params = request.META.get('QUERY_STRING')
+    usage.save()
 
 
 # ViewSets define the view behavior.

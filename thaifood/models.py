@@ -4,6 +4,17 @@ from django.utils.encoding import python_2_unicode_compatible
 
 
 @python_2_unicode_compatible
+class Usage(models.Model):
+    ip = models.CharField(max_length=50)
+    method = models.CharField(max_length=3)
+    path = models.CharField(max_length=100)
+    params = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.ip
+
+
+@python_2_unicode_compatible
 class Element(models.Model):
     name = models.CharField(max_length=10)
     code = models.CharField(max_length=10)

@@ -40,6 +40,7 @@
     var minNutrientsField = $('#minNutrientsField');
     var maxNutrientsField = $('#maxNutrientsField');
     var elementAllSet = $('#elementAllSet');
+    var fieldsField = $('#fields');
 
 
     $('#addMaxNutrients').click(function(){
@@ -94,6 +95,11 @@
         if(maxCaloriesElement.val().length > 0){
             params.push(createParamObj('maxcalories', maxCaloriesElement.val()));
         }
+
+        if(fieldsField.val().length > 0){
+            params.push(createParamObj('fields', fieldsField.val()));
+        }
+
         if(earthElement.is(":checked") || waterElement.is(":checked") ||
             windElement.is(":checked") || fireElement.is(":checked")
         ){
@@ -113,6 +119,8 @@
         if(randomElement.is(":checked")){
             params.push(createParamObj('random', 'true'));
         }
+
+
 
 
         console.log(params);
@@ -203,11 +211,16 @@
 
     function addRow(value){
 
-        var jsonUrl = baseUrl + value.id + "/?format=json";
+        var calories = '';
+        if(value.calories){
+            calories = value.calories;
+        }
+
+        var jsonUrl = baseUrl + value.id;
         var element = "<tr><td>";
         element += value.id + "</td><td>";
         element += value.name + "</td><td>";
-        element += value.calories + "</td><td>";
+        element += calorie + "</td><td>";
         element += "<a class='btn btn-info btn-sm' href='";
         element += jsonUrl + "' >";
         element += "json</a></td>";
@@ -252,6 +265,7 @@
         nutrientBaseElement.children().remove();
         maxNutrientsField.val('');
         minNutrientsField.val('');
+        fieldsField.val('');
 
     }
 
